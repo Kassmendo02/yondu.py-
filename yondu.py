@@ -4,27 +4,24 @@
 num_pirates = int(input("How many pirates: "))
 num_units = float(input("How many units: "))
 
-# Each pirate gets 3 units at the start
-initial_cut = 3 * num_pirates
-remaining_units = num_units - initial_cut
+# Regular crew (excluding Yondu and Peter)
+crew_only = num_pirates - 2
 
-# Yondu takes 13% of the remaining
-yondu_share = remaining_units * 0.13
-yondu_share = round(yondu_share, 2)
+# Each regular crew member gets 3 units 
+initial_cut = 3 * crew_only
 
-# Remaining after Yondu
-left_after_yondu = remaining_units - yondu_share
+# Yondu takes 13% of the TOTAL units
+yondu_share = round(num_units * 0.13, 2)
 
-# Peter gets 11% of what's left
-peter_share = left_after_yondu * 0.11
-peter_share = round(peter_share, 2)
+# Peter gets 11% of what's left after Yondu's cut
+after_yondu = num_units - yondu_share
+peter_share = round(after_yondu * 0.11,2)
 
-# Remaining after Peter
-left_after_peter = left_after_yondu - peter_share
+# Leftover after crew gifts + Yondu + Peter
+leftover = num_units - initial_cut - yondu_share- peter_share
 
-# Crew share per person (including Yondu + Peter + all pirates)
-crew_share = left_after_peter / num_pirates
-crew_share = round(crew_share, 2)
+# Crew share per person (including Yondu + Peter + all crew)
+crew_share = round(leftover / num_pirates, 2)
 
 # Output results
 print(f"Yondu's share: {yondu_share}")
